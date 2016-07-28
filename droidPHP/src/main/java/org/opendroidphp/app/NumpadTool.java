@@ -3,6 +3,7 @@ package org.opendroidphp.app;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -28,14 +29,23 @@ public class NumpadTool extends Activity {
         setContentView(R.layout.number_pad);
         Password();
         Numbers();
-        SharedPreferencesUtils.setPassword(this, "11111");
+        Cancel();
+        SharedPreferencesUtils.setPassword(this, "91735");
+    }
+
+    private void Cancel() {
+        TextView btnCancel = (TextView) findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
-//        android.os.Process.killProcess(android.os.Process.myPid());
         backSpaceAction();
-
     }
 
     private void backSpaceAction() {
@@ -146,7 +156,7 @@ public class NumpadTool extends Activity {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void markNumber(int number) {
         if (password.length() < 4) {
             password += String.valueOf(number);
@@ -156,12 +166,18 @@ public class NumpadTool extends Activity {
             txtPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         } else {
 
-            if (password.length() < 5){
+            if (password.length() < 5) {
                 password += String.valueOf(number);
                 txtPassword.setText(password);
             }
 
             if (password.equals(SharedPreferencesUtils.getPassword(this))) {
+//                android.os.Process.killProcess(android.os.Process.myPid());
+//                finishAffinity();
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
                 finish();
             } else {
                 //Animacion de vibracion

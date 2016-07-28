@@ -44,7 +44,7 @@
         </receiver>
 
         <activity
-            android:name=".app.NumpadTool"
+            android:name=".app.ui.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -57,10 +57,11 @@
             </intent-filter>
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".app.NumpadTool"-->
-            <!--android:configChanges="orientation"-->
-            <!--android:screenOrientation="portrait" />-->
+        <activity
+            android:name=".app.NumpadTool"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
 

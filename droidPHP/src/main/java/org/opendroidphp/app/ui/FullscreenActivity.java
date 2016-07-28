@@ -49,11 +49,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.opendroidphp.R;
 import org.opendroidphp.app.Constants;
+import org.opendroidphp.app.NumpadTool;
 import org.opendroidphp.app.common.utils.FileUtils;
 import org.opendroidphp.app.services.ServerService;
 import org.opendroidphp.app.tasks.CommandTask;
 import org.opendroidphp.app.tasks.DescargarArchivo;
+import org.opendroidphp.app.util.AnimationUtilities;
 import org.opendroidphp.app.util.SystemUiHider;
+import org.opendroidphp.app.util.Utilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -733,10 +736,15 @@ public class FullscreenActivity extends Activity {
                         }else if (number_of_clicks == 5) {
                             Log.d("onBackPressed5", String.valueOf(number_of_clicks));
                             runOnUiThread(new Runnable() {
+                                @TargetApi(Build.VERSION_CODES.HONEYCOMB)
                                 @Override
                                 public void run() {
+//                                    AnimationUtilities.movimientoY(findViewById(R.id.contNumpad),
+//                                            500, Utilities.getScreenDimensionsWH(FullscreenActivity.this)[1], 0).start();
                                     //todo ACCION DE MOSTRAR NUMPAD
-                                    finish();
+                                    Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
+                                    startActivity(intent);
+//                                    finish();
                                 }
                             });
                         }
@@ -863,7 +871,7 @@ public class FullscreenActivity extends Activity {
     Runnable refreshServerRunnable = new Runnable() {
         @Override
         public void run() {
-//            new iniciarServicios2(preferences.getString("use_server_httpd", "lighttpd"), preferences.getString("server_port", "8080")).execute();
+// todo CLASE DESCONOCIDA           new iniciarServicios2(preferences.getString("use_server_httpd", "lighttpd"), preferences.getString("server_port", "8080")).execute();
             refreshServerHandler.postDelayed(refreshServerRunnable, 2000);
         }
     };
