@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/res/merged/androidTest/debug/drawable/switch_inner_holo_light.xml",
+        "source": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/bundles/debug/res/drawable/switch_inner_holo_light.xml"
+    },
+    {
+        "merged": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/res/merged/androidTest/debug/drawable/switch_track_holo_dark.xml",
+        "source": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/bundles/debug/res/drawable/switch_track_holo_dark.xml"
+    },
+    {
+        "merged": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/res/merged/androidTest/debug/drawable/switch_track_holo_light.xml",
+        "source": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/bundles/debug/res/drawable/switch_track_holo_light.xml"
+    },
+    {
+        "merged": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/res/merged/androidTest/debug/drawable/switch_inner_holo_dark.xml",
+        "source": "/home/harold/Proyectos/Android/Neosepelios/DroidPHP/switchCompatLibrary/build/intermediates/bundles/debug/res/drawable/switch_inner_holo_dark.xml"
+    }
+]

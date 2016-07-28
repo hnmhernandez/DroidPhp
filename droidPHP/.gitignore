@@ -1,0 +1,13 @@
+.gradle
+/local.properties
+/.idea/*
+.DS_Store
+/build
+/captures
+gradle/*
+gradle.properties
+gradlew
+gradlew.bat
+*.iml
+modules/emojicon/build/*
+

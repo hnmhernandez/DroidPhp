@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#ffffffff"
+    tools:context=".FullscreenActivity"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+    android:focusable="false">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <TextView android:id="@+id/fullscreen_content" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:keepScreenOn="true" android:textColor="#33b5e5"
+        android:textStyle="bold" android:textSize="50sp"
+        android:autoText="true"
+        android:editable="false"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:focusable="false" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:focusable="false">
+
+        <LinearLayout android:id="@+id/fullscreen_content_controls"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="472dp"
+            android:layout_height="99dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:background="@drawable/neologo2" />
+
+        <WebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webView"
+            android:layout_gravity="left|top"
+            android:background="#ffffffff"
+            android:visibility="gone"
+            android:focusable="false"
+            android:focusableInTouchMode="true" />
+
+    </FrameLayout>
+
+</FrameLayout>
