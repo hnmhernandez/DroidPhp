@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.andexert.library.RippleView;
 
 import org.opendroidphp.R;
+import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.SharedPreferencesUtils;
 
 /**
  * Created by Harold Montenegro on 27/07/16.
  */
-public class NumpadTool extends Activity {
+public class NumpadTool extends DroidPhpActivity {
     private TextView txtPassword;
     private String password = "";
 
@@ -173,12 +174,12 @@ public class NumpadTool extends Activity {
 
             if (password.equals(SharedPreferencesUtils.getPassword(this))) {
 //                android.os.Process.killProcess(android.os.Process.myPid());
-//                finishAffinity();
-                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                startMain.addCategory(Intent.CATEGORY_HOME);
-                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startMain);
-                finish();
+                finishAffinity();
+//                Intent startMain = new Intent(Intent.ACTION_MAIN);
+//                startMain.addCategory(Intent.CATEGORY_HOME);
+//                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(startMain);
+//                finish();
             } else {
                 //Animacion de vibracion
                 ObjectAnimator

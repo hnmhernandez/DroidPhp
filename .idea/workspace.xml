@@ -32,7 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c258d288-56c1-46fe-b46e-355bbf09f35e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/AnimationUtilities.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/DroidPhpActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/taskArtifacts/fileSnapshots.bin" />
@@ -42,15 +42,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/2.10/tasks/_droidPHP_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/droidPHP/src/main/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/NumpadTool.java" afterPath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/NumpadTool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java" afterPath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java" afterPath="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml" afterPath="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml" afterPath="$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml" />
     </list>
     <ignored path="DroidPHP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,11 +76,8 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="number_pad.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.631579">
+            <state vertical-scroll-proportion="0.0">
               <caret line="364" column="34" selection-start-line="364" selection-start-column="25" selection-end-line="364" selection-end-column="34" />
               <folding>
                 <element signature="e#514#929#0" expanded="false" />
@@ -93,49 +85,38 @@
               </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="activity_fullscreen.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.157895">
+            <state vertical-scroll-proportion="-5.3157897">
               <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="66" selection-end-column="25" />
               <folding>
                 <element signature="e#568#957#0" expanded="false" />
               </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="FullscreenActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.9">
-              <caret line="745" column="56" selection-start-line="745" selection-start-column="56" selection-end-line="745" selection-end-column="56" />
+            <state vertical-scroll-proportion="-16.033333">
+              <caret line="731" column="27" selection-start-line="731" selection-start-column="27" selection-end-line="731" selection-end-column="27" />
               <folding>
                 <element signature="method#cambiarRootCrearUser#0;class#FullscreenActivity#0" expanded="false" />
                 <element signature="method#deleteDirectory#0;class#FullscreenActivity#0" expanded="false" />
                 <element signature="method#dialogoRetry#0;class#FullscreenActivity#0" expanded="false" />
-                <element signature="e#39821#41793#0" expanded="true" />
-                <element signature="e#40227#40572#0" expanded="true" />
-                <element signature="e#40571#40572#0" expanded="true" />
-                <element signature="e#40763#41517#0" expanded="true" />
-                <element signature="e#41516#41517#0" expanded="true" />
-                <element signature="e#41792#41793#0" expanded="true" />
                 <element signature="method#onPostCreate#0;class#FullscreenActivity#0" expanded="false" />
                 <element signature="docComment;field#mDelayHideTouchListener#0;class#FullscreenActivity#0" expanded="false" />
-                <element signature="e#45234#45690#0" expanded="true" />
-                <element signature="e#45689#45690#0" expanded="true" />
-                <element signature="e#45764#45877#0" expanded="true" />
-                <element signature="e#45876#45877#0" expanded="true" />
-                <element signature="e#45967#46290#0" expanded="true" />
-                <element signature="e#46289#46290#0" expanded="true" />
                 <element signature="method#delayedHide#0;class#FullscreenActivity#0" expanded="false" />
-                <element signature="e#48757#51200#0" expanded="true" />
-                <element signature="e#51199#51200#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -144,7 +125,7 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.592592">
+            <state vertical-scroll-proportion="0.0">
               <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
@@ -155,7 +136,7 @@
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="67" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getScreenDimensionsWH#0;class#Utilities#0" expanded="false" />
@@ -167,13 +148,32 @@
       <file leaf-file-name="NumpadTool.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/NumpadTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57029176">
-              <caret line="180" column="25" selection-start-line="180" selection-start-column="25" selection-end-line="180" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.9352518">
+              <caret line="181" column="27" selection-start-line="177" selection-start-column="17" selection-end-line="181" selection-end-column="27" />
               <folding>
-                <element signature="e#1077#1222#0" expanded="true" />
-                <element signature="e#1221#1222#0" expanded="true" />
-                <element signature="e#1278#1279#0" expanded="true" />
-                <element signature="e#1311#1312#0" expanded="true" />
+                <element signature="method#onCreate#0;class#NumpadTool#0" expanded="false" />
+                <element signature="method#Cancel#0;class#NumpadTool#0" expanded="false" />
+                <element signature="method#backSpaceAction#0;class#NumpadTool#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DroidPhpActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/DroidPhpActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="56" column="32" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1174#3003#0" expanded="true" />
+                <element signature="e#1612#1979#0" expanded="true" />
+                <element signature="e#1809#1830#0" expanded="true" />
+                <element signature="e#2183#2695#0" expanded="true" />
+                <element signature="e#2694#2695#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
+                <element signature="method#preventStatusBarExpansion#0;class#DroidPhpActivity#0" expanded="false" />
+                <element signature="class#customViewGroup#0;class#DroidPhpActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -2710,11 +2710,12 @@
         <option value="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/AnimationUtilities.java" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/services/ServerService.java" />
-        <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml" />
-        <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml" />
+        <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java" />
+        <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/DroidPhpActivity.java" />
+        <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java" />
         <option value="$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/NumpadTool.java" />
       </list>
     </option>
@@ -2749,7 +2750,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2852,17 +2852,79 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DroidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DroidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="droidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DroidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DroidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="droidPHP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2873,7 +2935,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3177,18 +3238,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1680" height="1020" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10309278" sideWeight="0.50734395" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10309278" sideWeight="0.49265605" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10309278" sideWeight="0.5097919" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22451317" sideWeight="0.4902081" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32986537" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.49265605" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298969" sideWeight="0.49265605" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3227,13 +3288,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/model/FileItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.00591716">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/SystemUiHiderBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.0236686">
@@ -3245,7 +3299,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3280,7 +3333,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.0">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="5" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3288,7 +3340,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3296,7 +3347,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3304,7 +3354,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3312,7 +3361,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.097693354">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3420,133 +3468,130 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/dialog_holo.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/dialog_editor.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/dialog_progress_holo.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/fragment_about.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/fragment_file.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/fragment_home.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/fragment_mysql.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/fragment_repository.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/waiting_dialog.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/repository_list_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/registro.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/AnimationUtilities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3562,7 +3607,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3570,7 +3614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.046153847">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3578,88 +3621,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.43076923">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23863636">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml">
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.157895">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="66" selection-end-column="25" />
-          <folding>
-            <element signature="e#568#957#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.9">
-          <caret line="745" column="56" selection-start-line="745" selection-start-column="56" selection-end-line="745" selection-end-column="56" />
-          <folding>
-            <element signature="method#cambiarRootCrearUser#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="method#deleteDirectory#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="method#dialogoRetry#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="e#39821#41793#0" expanded="true" />
-            <element signature="e#40227#40572#0" expanded="true" />
-            <element signature="e#40571#40572#0" expanded="true" />
-            <element signature="e#40763#41517#0" expanded="true" />
-            <element signature="e#41516#41517#0" expanded="true" />
-            <element signature="e#41792#41793#0" expanded="true" />
-            <element signature="method#onPostCreate#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="docComment;field#mDelayHideTouchListener#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="e#45234#45690#0" expanded="true" />
-            <element signature="e#45689#45690#0" expanded="true" />
-            <element signature="e#45764#45877#0" expanded="true" />
-            <element signature="e#45876#45877#0" expanded="true" />
-            <element signature="e#45967#46290#0" expanded="true" />
-            <element signature="e#46289#46290#0" expanded="true" />
-            <element signature="method#delayedHide#0;class#FullscreenActivity#0" expanded="false" />
-            <element signature="e#48757#51200#0" expanded="true" />
-            <element signature="e#51199#51200#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.592592">
+        <state vertical-scroll-proportion="0.0">
           <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java">
+    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="67" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getScreenDimensionsWH#0;class#Utilities#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/number_pad.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.631579">
           <caret line="364" column="34" selection-start-line="364" selection-start-column="25" selection-end-line="364" selection-end-column="34" />
           <folding>
             <element signature="e#514#929#0" expanded="false" />
@@ -3667,16 +3653,75 @@
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/res/layout/activity_fullscreen.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.3157897">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="66" selection-end-column="25" />
+          <folding>
+            <element signature="e#568#957#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/ui/FullscreenActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.033333">
+          <caret line="731" column="27" selection-start-line="731" selection-start-column="27" selection-end-line="731" selection-end-column="27" />
+          <folding>
+            <element signature="method#cambiarRootCrearUser#0;class#FullscreenActivity#0" expanded="false" />
+            <element signature="method#deleteDirectory#0;class#FullscreenActivity#0" expanded="false" />
+            <element signature="method#dialogoRetry#0;class#FullscreenActivity#0" expanded="false" />
+            <element signature="method#onPostCreate#0;class#FullscreenActivity#0" expanded="false" />
+            <element signature="docComment;field#mDelayHideTouchListener#0;class#FullscreenActivity#0" expanded="false" />
+            <element signature="method#delayedHide#0;class#FullscreenActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getScreenDimensionsWH#0;class#Utilities#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/util/DroidPhpActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="32" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1174#3003#0" expanded="true" />
+            <element signature="e#1612#1979#0" expanded="true" />
+            <element signature="e#1809#1830#0" expanded="true" />
+            <element signature="e#2183#2695#0" expanded="true" />
+            <element signature="e#2694#2695#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="method#preventStatusBarExpansion#0;class#DroidPhpActivity#0" expanded="false" />
+            <element signature="class#customViewGroup#0;class#DroidPhpActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/droidPHP/src/main/java/org/opendroidphp/app/NumpadTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57029176">
-          <caret line="180" column="25" selection-start-line="180" selection-start-column="25" selection-end-line="180" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.9352518">
+          <caret line="181" column="27" selection-start-line="177" selection-start-column="17" selection-end-line="181" selection-end-column="27" />
           <folding>
-            <element signature="e#1077#1222#0" expanded="true" />
-            <element signature="e#1221#1222#0" expanded="true" />
-            <element signature="e#1278#1279#0" expanded="true" />
-            <element signature="e#1311#1312#0" expanded="true" />
+            <element signature="method#onCreate#0;class#NumpadTool#0" expanded="false" />
+            <element signature="method#Cancel#0;class#NumpadTool#0" expanded="false" />
+            <element signature="method#backSpaceAction#0;class#NumpadTool#0" expanded="false" />
           </folding>
         </state>
       </provider>
