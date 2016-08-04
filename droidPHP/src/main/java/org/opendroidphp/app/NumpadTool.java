@@ -2,13 +2,12 @@ package org.opendroidphp.app;
 
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
@@ -28,11 +27,23 @@ public class NumpadTool extends DroidPhpActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_pad);
+
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+
+
+
         Password();
         Numbers();
         Cancel();
         SharedPreferencesUtils.setPassword(this, "91735");
     }
+
+    @Override
+    public void onBackPressed() {
+        backSpaceAction();
+    }
+
 
     private void Cancel() {
         TextView btnCancel = (TextView) findViewById(R.id.btnCancel);
@@ -42,11 +53,13 @@ public class NumpadTool extends DroidPhpActivity {
                 finish();
             }
         });
-    }
 
-    @Override
-    public void onBackPressed() {
-        backSpaceAction();
+        TextView btnPowerOff = (TextView) findViewById(R.id.btnPowerOff);
+        btnPowerOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
     private void backSpaceAction() {

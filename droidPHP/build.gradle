@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId 'org.opendroidphp'
         targetSdkVersion 19
@@ -16,17 +16,23 @@ android {
     }
     productFlavors {
     }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
     compile project(':switchCompatLibrary')
     compile 'com.android.support:support-v4:18.0.0'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile files('libs/commons-lite-1.14.jar')
+//    compile files('libs/commons-lite-1.14.jar')
     compile 'eu.the4thfloor.volley:com.android.volley:2015.02.02'
     compile files('libs/libgpio.jar')
     compile files('libs/libuart.jar')
     compile files('libs/Sam4sAndroidSDK.jar')
     compile 'commons-io:commons-io:2.4'
     compile 'com.github.traex.rippleeffect:library:1.3'
+    compile 'com.android.support:multidex:1.0.1'
 }

@@ -12,11 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import org.opendroidphp.R;
 import org.opendroidphp.app.NumpadTool;
 import org.opendroidphp.app.ui.FullscreenActivity;
 
@@ -25,56 +23,31 @@ import org.opendroidphp.app.ui.FullscreenActivity;
  */
 public class DroidPhpActivity extends Activity {
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preventStatusBarExpansion(this);
+
+        if(Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if(Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+
+
 
     }
-
-    int number_of_clicks = 0;
-    boolean thread_started = false;
-    final int DELAY_BETWEEN_CLICKS_IN_MILLISECONDS = 600;
 
     @Override
     public void onBackPressed() {
         if (this instanceof FullscreenActivity) {
-            ++number_of_clicks;
-            if (!thread_started) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        thread_started = true;
-                        try {
-                            Thread.sleep(DELAY_BETWEEN_CLICKS_IN_MILLISECONDS);
-                            if (number_of_clicks == 1) {
-                                Log.d("onBackPressed1", String.valueOf(number_of_clicks));
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(DroidPhpActivity.this, R.string.message_exit,
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else if (number_of_clicks == 5) {
-                                Log.d("onBackPressed5", String.valueOf(number_of_clicks));
-                                runOnUiThread(new Runnable() {
-                                    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-                                    @Override
-                                    public void run() {
-                                        //todo ACCION DE MOSTRAR NUMPAD
-                                        Intent intent = new Intent(DroidPhpActivity.this, NumpadTool.class);
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
-                            number_of_clicks = 0;
-                            thread_started = false;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
+            Intent intent = new Intent(DroidPhpActivity.this, NumpadTool.class);
+            startActivity(intent);
         } else {
             super.onBackPressed();
         }

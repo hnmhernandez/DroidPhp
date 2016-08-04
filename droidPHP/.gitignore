@@ -9,5 +9,4 @@ gradle.properties
 gradlew
 gradlew.bat
 *.iml
-modules/emojicon/build/*
 

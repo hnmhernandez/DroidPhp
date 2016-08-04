@@ -106,5 +106,6 @@
     <!-- message -->
     <string name="message_exit">Press 5 times faster to exit</string>
     <string name="enter_your_password_for_exit">Enter your password for exit</string>
+    <string name="cancelar">CANCEL</string>
 
 </resources>
