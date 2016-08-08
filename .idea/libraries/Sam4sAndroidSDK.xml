@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Sam4sAndroidSDK">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/droidPHP/libs/Sam4sAndroidSDK.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

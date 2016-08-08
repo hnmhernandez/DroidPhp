@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="libuart">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/droidPHP/libs/libuart.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

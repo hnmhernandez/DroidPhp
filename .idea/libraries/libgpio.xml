@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="libgpio">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/droidPHP/libs/libgpio.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

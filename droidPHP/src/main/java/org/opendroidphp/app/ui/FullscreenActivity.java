@@ -25,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -173,27 +174,13 @@ public class FullscreenActivity extends DroidPhpActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-        //aca inicia la web
-        myWebView = (WebView) this.findViewById(R.id.webView);
-
-        WebSettings settings = myWebView.getSettings();
-        //activamos que se pueda ver dentro de la apk no que abra el navegador
-        myWebView.setWebViewClient(new WebViewClient() {
-                                       @Override
-                                       public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                                           super.onReceivedError(view, errorCode, description, failingUrl);
-                                           view.loadUrl("http://localhost:8080/404.php");
-                                       }
-                                   }
-        );
-        settings.setJavaScriptEnabled(true);
-        //activamos caracteristica de chrome para que puedan subir imagen.
-//       myWebView.addJavascriptInterface(new WebAppInterface(this, myWebView, FullscreenActivity.this), "Android");
-        myWebView.setWebChromeClient(new WebChromeClient() {
-
+        Button btnApagar = (Button) findViewById(R.id.btnApagar);
+        btnApagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myWebView.loadUrl("javascript:window.HTMLOUT.showHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
+            }
         });
-
 
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
