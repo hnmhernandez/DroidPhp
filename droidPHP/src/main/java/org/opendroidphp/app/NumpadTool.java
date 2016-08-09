@@ -2,6 +2,7 @@ package org.opendroidphp.app;
 
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -15,6 +16,7 @@ import com.andexert.library.RippleView;
 import org.opendroidphp.R;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.SharedPreferencesUtils;
+import org.opendroidphp.app.util.Utilities;
 
 /**
  * Created by Harold Montenegro on 27/07/16.
@@ -27,12 +29,7 @@ public class NumpadTool extends DroidPhpActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_pad);
-
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
-
-
         Password();
         Numbers();
         Cancel();
@@ -186,8 +183,11 @@ public class NumpadTool extends DroidPhpActivity {
             }
 
             if (password.equals(SharedPreferencesUtils.getPassword(this))) {
-//                android.os.Process.killProcess(android.os.Process.myPid());
+                PackageManager pm = getPackageManager();
+                pm.clearPackagePreferredActivities(getPackageName());
                 finishAffinity();
+                android.os.Process.killProcess(android.os.Process.myPid());
+
 //                Intent startMain = new Intent(Intent.ACTION_MAIN);
 //                startMain.addCategory(Intent.CATEGORY_HOME);
 //                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

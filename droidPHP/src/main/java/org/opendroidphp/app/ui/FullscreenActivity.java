@@ -75,6 +75,8 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -123,6 +125,8 @@ public class FullscreenActivity extends DroidPhpActivity {
     private SystemUiHider mSystemUiHider;
     private String android_id;
     public Button buttonContinuar;
+    private String idCliente = "";
+    private String postDataStr = "";
 
     @Override
     protected void onStart() {
@@ -174,13 +178,27 @@ public class FullscreenActivity extends DroidPhpActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Button btnApagar = (Button) findViewById(R.id.btnApagar);
-        btnApagar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myWebView.loadUrl("javascript:window.HTMLOUT.showHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
-            }
+
+        //aca inicia la web
+        myWebView = (WebView) this.findViewById(R.id.webView);
+
+        WebSettings settings = myWebView.getSettings();
+        //activamos que se pueda ver dentro de la apk no que abra el navegador
+        myWebView.setWebViewClient(new WebViewClient() {
+                                       @Override
+                                       public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                                           super.onReceivedError(view, errorCode, description, failingUrl);
+                                           view.loadUrl("http://localhost:8080/404.php");
+                                       }
+                                   }
+        );
+        settings.setJavaScriptEnabled(true);
+        //activamos caracteristica de chrome para que puedan subir imagen.
+//        myWebView.addJavascriptInterface(new WebAppInterface(this, myWebView, FullscreenActivity.this), "Android");
+        myWebView.setWebChromeClient(new WebChromeClient() {
+
         });
+
 
         android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -200,6 +218,11 @@ public class FullscreenActivity extends DroidPhpActivity {
         } else {
             cambiarRootCrearUser();
         }
+
+
+        //TODO////////////////////////////////////////////////////////////
+//        timer.scheduleAtFixedRate(timerTask, 15000, 5000);
+        //TODO///////////////////////////////////////////////////////////
 
     }
 
@@ -550,7 +573,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                     if (!isOnline()) {
                         descargaActiva = false;
                     }
-                    final String TipoTerminal, idCliente, activo;
+                    final String TipoTerminal, activo;
                     if (!jsonObjConsulta1.getString("resultado").equals("false")) {
                         TipoTerminal = jsonObjConsulta1.getString("tipoTerminal");
                         idCliente = jsonObjConsulta1.getString("idCliente");
@@ -568,7 +591,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                             if ((dateDBFinal != null && dateDBFinal.compareTo(dateDISPO) > 0) || activo.equals("1")) {
                                 if (!descargaActivaF[0]) {
                                     dialogoEspere.dismiss();
-                                    proyectoActivo = TipoTerminal.toString();
+                                    proyectoActivo = TipoTerminal;
                                     String[] parts = proyectoActivo.split("_");
                                     proyectoActivo = parts[0];
                                     if (proyectoActivo.equals("ST")) {
@@ -579,13 +602,14 @@ public class FullscreenActivity extends DroidPhpActivity {
                                     }
                                     myWebView.setVisibility(View.VISIBLE);
                                     myWebView.setWebChromeClient(new WebChromeClient());
-                                    String postDataStr = "idCliente=" + idCliente + "&key=mC5GPxx2JSXmVXy9jm5j&ipServer=" + getIpAddress();
+                                    postDataStr = "idCliente=" + idCliente + "&key=mC5GPxx2JSXmVXy9jm5j&ipServer=" + getIpAddress();
                                     myWebView.postUrl("http://localhost:8080/index.php", EncodingUtils.getBytes(postDataStr, "utf-8"));
                                     myWebView.getSettings().setJavaScriptEnabled(true);
                                     final LoadListener lListener = new LoadListener();
                                     myWebView.addJavascriptInterface(lListener, "HTMLOUT");
                                     lListener.setWebView(myWebView);
                                     lListener.setCliente(idCliente);
+
                                     myWebView.setWebViewClient(new WebViewClient() {
                                         public void onPageFinished(WebView view, String url) {
                                             view.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
@@ -595,7 +619,6 @@ public class FullscreenActivity extends DroidPhpActivity {
                             } else {
                                 dialogoEspere.dismiss();
                                 dialogoRetry();
-                                return;
                             }
                         }
                     });
@@ -636,7 +659,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                 for (Enumeration enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                        String ipAddress = inetAddress.getHostAddress().toString();
+                        String ipAddress = inetAddress.getHostAddress();
                         Log.e("IP address", "" + ipAddress);
                         return ipAddress;
                     }
@@ -647,7 +670,6 @@ public class FullscreenActivity extends DroidPhpActivity {
         }
         return null;
     }
-
 
     private Context context;
     private SharedPreferences preferences;
@@ -773,6 +795,66 @@ public class FullscreenActivity extends DroidPhpActivity {
         return context;
     }
 
+
+    //TODO/////////////////////////////////////////////////////////////////////////////////////////
+    private void scanHtml() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                myWebView.getSettings().setJavaScriptEnabled(true);
+                myWebView.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
+                myWebView.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
+
+                if (myWebView.getUrl() != null) {
+                    Utilities.log("URL-->" + myWebView.getUrl());
+                    if (!myWebView.getUrl().equals("http://localhost:8080/demo/?protocolo=http&recurso=localhost%3A8080%2Findex1.php&w=1920&h=1080&titulo=&nota=")){
+                        myWebView.loadUrl("http://localhost:8080/index.php");
+                    }
+                }
+            }
+        });
+    }
+
+    class MyJavaScriptInterface {
+        @JavascriptInterface
+        @SuppressWarnings("unused")
+        public void processHTML(String html) {
+            Utilities.log("PAGINA--> " + html);
+            if(html.contains("var proporcionAncho = 1;")){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(FullscreenActivity.this, "DETECTO var proporcionAncho = 1;", Toast.LENGTH_SHORT).show();
+                        Settings.System.putInt(getContentResolver(),
+                                Settings.System.SCREEN_BRIGHTNESS, 20);
+
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.screenBrightness =0f;// 100 / 100.0f;
+                        getWindow().setAttributes(lp);
+                    }
+                });
+            }
+        }
+    }
+
+    // Clase en la que está el código a ejecutar
+    TimerTask timerTask = new TimerTask() {
+        public void run() {
+            scanHtml();
+        }
+    };
+
+    // Aquí se pone en marcha el timer cada segundo.
+    Timer timer = new Timer();
+
+    //TODO/////////////////////////////////////////////////////////////////////////////////
+
+
+    //TODO////////////////////////////////////////////////////////////////////////////////
+    public void captureScreen(){
+
+    }
+    //TODO////////////////////////////////////////////////////////////////////////////////
 }
 
 //Clases Agregadas
@@ -816,7 +898,6 @@ class ConnectionListenerTask extends AsyncTask<Void, String, Void> {
     }
 
 }
-
 
 class LoadListener {
     private WebView objectWebView;
@@ -891,7 +972,10 @@ class LoadListener {
     public void setWebView(WebView wv) {
         this.objectWebView = wv;
     }
+
 }
+
+
 
 
 
