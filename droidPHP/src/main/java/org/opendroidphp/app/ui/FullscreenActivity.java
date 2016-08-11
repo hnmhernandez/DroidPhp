@@ -3,7 +3,6 @@ package org.opendroidphp.app.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -11,19 +10,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PixelFormat;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -33,6 +31,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+import com.koushikdutta.ion.builder.Builders;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -50,17 +54,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.opendroidphp.R;
 import org.opendroidphp.app.Constants;
-import org.opendroidphp.app.NumpadTool;
 import org.opendroidphp.app.common.utils.FileUtils;
 import org.opendroidphp.app.services.ServerService;
 import org.opendroidphp.app.tasks.CommandTask;
 import org.opendroidphp.app.tasks.DescargarArchivo;
-import org.opendroidphp.app.util.AnimationUtilities;
 import org.opendroidphp.app.util.DroidPhpActivity;
+import org.opendroidphp.app.util.Json;
+import org.opendroidphp.app.util.NetUtilities;
 import org.opendroidphp.app.util.SystemUiHider;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -75,6 +80,7 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -220,10 +226,25 @@ public class FullscreenActivity extends DroidPhpActivity {
         }
 
 
-        //TODO////////////////////////////////////////////////////////////
-//        timer.scheduleAtFixedRate(timerTask, 15000, 5000);
-        //TODO///////////////////////////////////////////////////////////
+        //TODO//////////////////////////////////////////////////////////////////////////////////////
 
+        final Button boton = (Button)findViewById(R.id.boton);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                captureScreen();
+            }
+        });
+
+        final Button boton2 = (Button)findViewById(R.id.boton2);
+        boton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendPost();
+            }
+        });
+
+        //TODO//////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void cambiarRootCrearUser() {
@@ -615,6 +636,15 @@ public class FullscreenActivity extends DroidPhpActivity {
                                             view.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                                         }
                                     });
+
+                                    //TODO////////////////////////////////////////////////////////////
+                                    if (myWebView.getUrl() != null) {
+                                        if (!myWebView.getUrl().equals("http://neosepel.ferozo.net/neoinnovaciones/RegistroClientes/view/registro.php")){
+//                                            timer.scheduleAtFixedRate(timerTask, 15000, 5000);
+                                        }
+                                    }
+                                    //TODO///////////////////////////////////////////////////////////
+
                                 }
                             } else {
                                 dialogoEspere.dismiss();
@@ -824,7 +854,9 @@ public class FullscreenActivity extends DroidPhpActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(FullscreenActivity.this, "DETECTO var proporcionAncho = 1;", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FullscreenActivity.this,
+                                "DETECTO FRAGMENTO DE CODIGO DE EJEMPLO --> var proporcionAncho = 1;",
+                                Toast.LENGTH_SHORT).show();
                         Settings.System.putInt(getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS, 20);
 
@@ -852,7 +884,62 @@ public class FullscreenActivity extends DroidPhpActivity {
 
     //TODO////////////////////////////////////////////////////////////////////////////////
     public void captureScreen(){
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            openScreenshot(imageFile);
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
+    }
+
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
+    }
+    //TODO////////////////////////////////////////////////////////////////////////////////
+
+    //TODO////////////////////////////////////////////////////////////////////////////////
+    private void sendPost() {
+        Json json = Json.object();
+        json.set("foo", "bar");
+
+        Utilities.log("JSONSEND--> " + json);
+        NetUtilities netUtilities = new NetUtilities(this, new NetUtilities.OnNetUtilsActions() {
+            @Override
+            public void onInitRequest(String url) {
+                Utilities.log("INITRESQUEST");
+            }
+
+            @Override
+            public void onFinishRequest(String url, Exception e, String response, int status) {
+                Utilities.log("RESPONSE--> " + response);
+                Utilities.log("STATUS--> " + status);
+            }
+        });
+        netUtilities.postRequest("http://192.168.1.171/info.php", json);
     }
     //TODO////////////////////////////////////////////////////////////////////////////////
 }
