@@ -2,6 +2,7 @@ package org.opendroidphp.app.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.util.DisplayMetrics;
@@ -64,5 +65,10 @@ public class Utilities {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getFingerPrint(Context context){
+        return Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
     }
 }

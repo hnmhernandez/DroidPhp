@@ -1,15 +1,17 @@
 package org.opendroidphp.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import de.tavendo.autobahn.WebSocketOptions;
 import org.opendroidphp.R;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.Json;
+import org.opendroidphp.app.util.TimeHandler;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.ByteArrayOutputStream;
@@ -38,9 +41,10 @@ public class testSocket extends DroidPhpActivity {
 
     private static final int SERVERPORT = 9000;
     private static final String SERVER_IP = "192.168.1.171";
-    private EditText et;
+    private TextView et;
     private TextView textView;
     private final WebSocketConnection mConnection = new WebSocketConnection();
+    private String macAddress;
 
 
     @Override
@@ -48,17 +52,24 @@ public class testSocket extends DroidPhpActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_socket);
 
-        et = (EditText) findViewById(R.id.EditText01);
+        et = (TextView) findViewById(R.id.Text01);
+        et.setText(Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
         textView = (TextView) findViewById(R.id.message);
         connectWebSocket();
 
         Button myButton = (Button) findViewById(R.id.myButton);
-//        myButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                sendMessage();
-//            }
-//        });
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                connectWebSocket();
+            }
+        });
+    }
+
+    private String getMacAdress() {
+        WifiManager manager = (WifiManager) getSystemService(WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        return info.getMacAddress();
     }
 
     private void connectWebSocket() {
@@ -74,16 +85,27 @@ public class testSocket extends DroidPhpActivity {
                 @Override
                 public void onOpen() {
                     Utilities.log("Websocket--> " + "Status: Connected to " + wsuri);
-                    mConnection.sendTextMessage(Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
+                    Json json = Json.object();
+                    json.set("deviceNew", Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
+                    json.set("mac", getMacAdress());
+                    json.set("fingerPrint", Utilities.getFingerPrint(testSocket.this));
+                    sendMessage(json.toString());
                 }
 
                 @Override
                 public void onTextMessage(String payload) {
                     Utilities.log("Websocket--> " + "Got echo: " + payload);
-                    Json json= Json.read(payload);
-                    if(json.at("type").asString().equals("capture")){
-                        json.set("image", captureScreen());
-                        sendMessage(json.toString());
+                    final Json json = Json.read(payload);
+                    if (json.at("type").asString().equals("capture")) {
+                        textView.setText("Han solicitado una captura de pantalla desde el servidor");
+                        TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
+                            @Override
+                            public void onFinishTime() {
+                                json.set("image", captureScreen());
+                                sendMessage(json.toString());
+                            }
+                        });
+                        timeHandler.start();
                     }
                 }
 
@@ -93,7 +115,6 @@ public class testSocket extends DroidPhpActivity {
                 }
             }, options);
         } catch (WebSocketException e) {
-
             Utilities.log("Websocket--> " + e.toString());
         }
     }
@@ -103,7 +124,7 @@ public class testSocket extends DroidPhpActivity {
         mConnection.sendTextMessage(message);
     }
 
-    public String captureScreen(){
+    public String captureScreen() {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 
@@ -158,16 +179,7 @@ public class testSocket extends DroidPhpActivity {
                 output64.write(buffer, 0, bytesRead);
             }
             output64.close();
-
-//            String extension = MimeTypeMap.getFileExtensionFromUrl(path);
-//            if (extension != null) {
-//                type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-            Utilities.log("BASE64 REAL--> " + clean(output.toString()));
-
-                return "data:image/jpeg;base64," + clean(output.toString());
-//            } else {
-//                return null;
-//            }
+            return "data:image/jpeg;base64," + clean(output.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
