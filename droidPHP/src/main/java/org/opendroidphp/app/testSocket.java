@@ -39,12 +39,17 @@ import java.util.Date;
  */
 public class testSocket extends DroidPhpActivity {
 
-    private static final int SERVERPORT = 9000;
-    private static final String SERVER_IP = "192.168.1.171";
-    private TextView et;
+    //Local
+//    private static final int SERVERPORT = 9000;
+//    private static final String SERVER_IP = "192.168.1.171";
+
+    //Remoto
+    private static final int SERVERPORT = 9999;
+    private static final String SERVER_IP = "138.36.236.142";
+
+
     private TextView textView;
     private final WebSocketConnection mConnection = new WebSocketConnection();
-    private String macAddress;
 
 
     @Override
@@ -52,7 +57,7 @@ public class testSocket extends DroidPhpActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_socket);
 
-        et = (TextView) findViewById(R.id.Text01);
+        TextView et = (TextView) findViewById(R.id.Text01);
         et.setText(Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
         textView = (TextView) findViewById(R.id.message);
         connectWebSocket();
@@ -186,8 +191,8 @@ public class testSocket extends DroidPhpActivity {
         return null;
     }
 
-    public static String clean(String url) {
-        /*Quitar doble slash en las urls */
-        return url.replaceAll("\n", "");
+    public static String clean(String string) {
+        /*Quitar salto de linea en string */
+        return string.replaceAll("\n", "");
     }
 }
