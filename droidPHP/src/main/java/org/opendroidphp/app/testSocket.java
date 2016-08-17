@@ -1,6 +1,5 @@
 package org.opendroidphp.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,7 +12,6 @@ import android.util.Base64;
 import android.util.Base64OutputStream;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import de.tavendo.autobahn.WebSocketConnection;
@@ -25,6 +23,7 @@ import org.opendroidphp.R;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.Json;
 import org.opendroidphp.app.util.TimeHandler;
+import org.opendroidphp.app.util.TimerCustom;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.ByteArrayOutputStream;
@@ -40,16 +39,17 @@ import java.util.Date;
 public class testSocket extends DroidPhpActivity {
 
     //Local
-//    private static final int SERVERPORT = 9000;
-//    private static final String SERVER_IP = "192.168.1.171";
+    private static final int SERVERPORT = 9000;
+    private static final String SERVER_IP = "192.168.1.171";
 
     //Remoto
-    private static final int SERVERPORT = 9999;
-    private static final String SERVER_IP = "138.36.236.142";
+//    private static final int SERVERPORT = 9999;
+//    private static final String SERVER_IP = "138.36.236.142";
 
 
     private TextView textView;
     private final WebSocketConnection mConnection = new WebSocketConnection();
+    private TimerCustom timerCustom;
 
 
     @Override
@@ -61,12 +61,25 @@ public class testSocket extends DroidPhpActivity {
         et.setText(Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
         textView = (TextView) findViewById(R.id.message);
         connectWebSocket();
+        initTimerCustom();
 
         Button myButton = (Button) findViewById(R.id.myButton);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 connectWebSocket();
+            }
+        });
+    }
+
+    private void initTimerCustom() {
+        timerCustom = new TimerCustom(5000);
+        timerCustom.setOnTimeRun(new TimerCustom.OnTimeRun() {
+            @Override
+            public void onTime() {
+                if(!mConnection.isConnected()){
+                    connectWebSocket();
+                }
             }
         });
     }
@@ -101,16 +114,18 @@ public class testSocket extends DroidPhpActivity {
                 public void onTextMessage(String payload) {
                     Utilities.log("Websocket--> " + "Got echo: " + payload);
                     final Json json = Json.read(payload);
-                    if (json.at("type").asString().equals("capture")) {
-                        textView.setText("Han solicitado una captura de pantalla desde el servidor");
-                        TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
-                            @Override
-                            public void onFinishTime() {
-                                json.set("image", captureScreen());
-                                sendMessage(json.toString());
-                            }
-                        });
-                        timeHandler.start();
+                    if(json.has("type")){
+                        if (json.at("type").asString().equals("capture")) {
+                            textView.setText("Han solicitado una captura de pantalla desde el servidor");
+                            TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
+                                @Override
+                                public void onFinishTime() {
+                                    json.set("image", captureScreen());
+                                    sendMessage(json.toString());
+                                }
+                            });
+                            timeHandler.start();
+                        }
                     }
                 }
 
@@ -129,6 +144,15 @@ public class testSocket extends DroidPhpActivity {
         mConnection.sendTextMessage(message);
     }
 
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
+    }
+
+    //Para Utils
     public String captureScreen() {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
@@ -159,14 +183,6 @@ public class testSocket extends DroidPhpActivity {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
     }
 
     public static String convertBase64(String path) {
