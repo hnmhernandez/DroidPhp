@@ -61,7 +61,9 @@ import org.opendroidphp.app.tasks.DescargarArchivo;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.Json;
 import org.opendroidphp.app.util.NetUtilities;
+import org.opendroidphp.app.util.SocketUtils;
 import org.opendroidphp.app.util.SystemUiHider;
+import org.opendroidphp.app.util.TimeHandler;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.File;
@@ -713,6 +715,11 @@ public class FullscreenActivity extends DroidPhpActivity {
         setContentView(R.layout.activity_fullscreen);
         preventStatusBarExpansion(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //TODO//////////////////////////////////////////////////////////////////////////////////
+        WebSocket();
+        //TODO//////////////////////////////////////////////////////////////////////////////////
+
         //Verificar si existen los archivos, si no existe crearlos.
         if (!FileUtils.checkIfExecutableExists()) {
             String[] arreglo = new String[2];
@@ -940,6 +947,40 @@ public class FullscreenActivity extends DroidPhpActivity {
             }
         });
         netUtilities.postRequest("http://192.168.1.171/info.php", json);
+    }
+
+    private SocketUtils socketUtils;
+    private void WebSocket() {
+        socketUtils = new SocketUtils(this);
+        socketUtils.setOnConnectionListener(new SocketUtils.OnConnectionListener() {
+            @Override
+            public void onOpen() {
+
+            }
+
+            @Override
+            public void onMessage(String payload) {
+                final Json json = Json.read(payload);
+                if (json.has("type")) {
+                    if (json.at("type").asString().equals("capture")) {
+//                        textView.setText("Han solicitado una captura de pantalla desde el servidor");
+                        TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
+                            @Override
+                            public void onFinishTime() {
+                                json.set("image", Utilities.captureScreen(FullscreenActivity.this));
+                                socketUtils.sendMessage(json.toString());
+                            }
+                        });
+                        timeHandler.start();
+                    }
+                }
+            }
+
+            @Override
+            public void onClosed(int code, String reason) {
+
+            }
+        });
     }
     //TODO////////////////////////////////////////////////////////////////////////////////
 }
