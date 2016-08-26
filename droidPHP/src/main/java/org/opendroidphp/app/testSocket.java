@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import org.opendroidphp.R;
 import org.opendroidphp.app.util.DroidPhpActivity;
+import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
 import org.opendroidphp.app.util.SocketUtils;
 import org.opendroidphp.app.util.TimeHandler;
-import org.opendroidphp.app.util.Utilities;
 
 
 /**
@@ -59,7 +59,7 @@ public class testSocket extends DroidPhpActivity {
                         TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
                             @Override
                             public void onFinishTime() {
-                                json.set("image", Utilities.captureScreen(testSocket.this));
+                                json.set("image", ImageUtils.captureScreen(testSocket.this));
                                 socketUtils.sendMessage(json.toString());
                             }
                         });

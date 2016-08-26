@@ -59,6 +59,7 @@ import org.opendroidphp.app.services.ServerService;
 import org.opendroidphp.app.tasks.CommandTask;
 import org.opendroidphp.app.tasks.DescargarArchivo;
 import org.opendroidphp.app.util.DroidPhpActivity;
+import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
 import org.opendroidphp.app.util.NetUtilities;
 import org.opendroidphp.app.util.SocketUtils;
@@ -133,7 +134,7 @@ public class FullscreenActivity extends DroidPhpActivity {
     private SystemUiHider mSystemUiHider;
     private String android_id;
     public Button buttonContinuar;
-    private String idCliente = "";
+    public static String idCliente = "";
     private String postDataStr = "";
 
     @Override
@@ -231,12 +232,6 @@ public class FullscreenActivity extends DroidPhpActivity {
         //TODO//////////////////////////////////////////////////////////////////////////////////////
 
         final Button boton = (Button)findViewById(R.id.boton);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                captureScreen();
-            }
-        });
 
         final Button boton2 = (Button)findViewById(R.id.boton2);
         boton2.setOnClickListener(new View.OnClickListener() {
@@ -639,6 +634,10 @@ public class FullscreenActivity extends DroidPhpActivity {
                                         }
                                     });
 
+                                    //TODO//////////////////////////////////////////////////////////////////////////////////
+                                    WebSocket();
+                                    //TODO//////////////////////////////////////////////////////////////////////////////////
+
                                     //TODO////////////////////////////////////////////////////////////
                                     if (myWebView.getUrl() != null) {
                                         if (!myWebView.getUrl().equals("http://neosepel.ferozo.net/neoinnovaciones/RegistroClientes/view/registro.php")){
@@ -715,10 +714,6 @@ public class FullscreenActivity extends DroidPhpActivity {
         setContentView(R.layout.activity_fullscreen);
         preventStatusBarExpansion(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //TODO//////////////////////////////////////////////////////////////////////////////////
-        WebSocket();
-        //TODO//////////////////////////////////////////////////////////////////////////////////
 
         //Verificar si existen los archivos, si no existe crearlos.
         if (!FileUtils.checkIfExecutableExists()) {
@@ -890,45 +885,6 @@ public class FullscreenActivity extends DroidPhpActivity {
 
 
     //TODO////////////////////////////////////////////////////////////////////////////////
-    public void captureScreen(){
-        Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-            openScreenshot(imageFile);
-        } catch (Throwable e) {
-            // Several error may come out with file handling or OOM
-            e.printStackTrace();
-        }
-    }
-
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
-    }
-    //TODO////////////////////////////////////////////////////////////////////////////////
-
-    //TODO////////////////////////////////////////////////////////////////////////////////
     private void sendPost() {
         Json json = Json.object();
         json.set("foo", "bar");
@@ -963,11 +919,10 @@ public class FullscreenActivity extends DroidPhpActivity {
                 final Json json = Json.read(payload);
                 if (json.has("type")) {
                     if (json.at("type").asString().equals("capture")) {
-//                        textView.setText("Han solicitado una captura de pantalla desde el servidor");
                         TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
                             @Override
                             public void onFinishTime() {
-                                json.set("image", Utilities.captureScreen(FullscreenActivity.this));
+                                json.set("image", ImageUtils.captureScreen(FullscreenActivity.this));
                                 socketUtils.sendMessage(json.toString());
                             }
                         });
