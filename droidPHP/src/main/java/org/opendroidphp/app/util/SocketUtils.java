@@ -77,7 +77,8 @@ public class SocketUtils {
                     json.set("deviceNew", Build.MANUFACTURER + " " + Build.MODEL + " " + Build.ID);
                     json.set("mac", Utilities.getMacAddress(context));
                     json.set("fingerPrint", Utilities.getFingerPrint(context));
-                    json.set("idClient", FullscreenActivity.idCliente);
+                    json.set("idClient", FullscreenActivity.idClient);
+                    json.set("emailClient", FullscreenActivity.emailClient);
                     sendMessage(json.toString());
                 }
 
@@ -103,7 +104,7 @@ public class SocketUtils {
     }
 
     public void sendMessage(String message) {
-//        Utilities.log("MENSAJE--> " + message);
+        Utilities.log("MENSAJE--> " + message);
         mConnection.sendTextMessage(message);
     }
 

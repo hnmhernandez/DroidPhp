@@ -134,8 +134,9 @@ public class FullscreenActivity extends DroidPhpActivity {
     private SystemUiHider mSystemUiHider;
     private String android_id;
     public Button buttonContinuar;
-    public static String idCliente = "";
+    public static String idClient = "";
     private String postDataStr = "";
+    public static  String emailClient = "";
 
     @Override
     protected void onStart() {
@@ -486,8 +487,8 @@ public class FullscreenActivity extends DroidPhpActivity {
                         params2.add(new BasicNameValuePair("user", "root"));
                         params2.add(new BasicNameValuePair("pwd", "5Du1WaFGfkhS2qmYAmE3"));
                         params2.add(new BasicNameValuePair("database", "db_licenciamiento"));
-
                         params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
+                        emailClient = jsonObj.getString("email");
                         params2.add(new BasicNameValuePair("email", jsonObj.getString("email")));
                         params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                         params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
@@ -564,6 +565,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                             params2.add(new BasicNameValuePair("database", "db_licenciamiento"));
 
                             params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
+                            emailClient = jsonObj.getString("email");
                             params2.add(new BasicNameValuePair("email", jsonObj.getString("email")));
                             params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                             params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
@@ -594,11 +596,11 @@ public class FullscreenActivity extends DroidPhpActivity {
                     final String TipoTerminal, activo;
                     if (!jsonObjConsulta1.getString("resultado").equals("false")) {
                         TipoTerminal = jsonObjConsulta1.getString("tipoTerminal");
-                        idCliente = jsonObjConsulta1.getString("idCliente");
+                        idClient = jsonObjConsulta1.getString("idCliente");
                         activo = jsonObjConsulta1.getString("activo");
                     } else {
                         TipoTerminal = "";
-                        idCliente = "";
+                        idClient = "";
                         activo = "";
                     }
                     final Date dateDBFinal = dateDB;
@@ -620,13 +622,13 @@ public class FullscreenActivity extends DroidPhpActivity {
                                     }
                                     myWebView.setVisibility(View.VISIBLE);
                                     myWebView.setWebChromeClient(new WebChromeClient());
-                                    postDataStr = "idCliente=" + idCliente + "&key=mC5GPxx2JSXmVXy9jm5j&ipServer=" + getIpAddress();
+                                    postDataStr = "idCliente=" + idClient + "&key=mC5GPxx2JSXmVXy9jm5j&ipServer=" + getIpAddress();
                                     myWebView.postUrl("http://localhost:8080/index.php", EncodingUtils.getBytes(postDataStr, "utf-8"));
                                     myWebView.getSettings().setJavaScriptEnabled(true);
                                     final LoadListener lListener = new LoadListener();
                                     myWebView.addJavascriptInterface(lListener, "HTMLOUT");
                                     lListener.setWebView(myWebView);
-                                    lListener.setCliente(idCliente);
+                                    lListener.setCliente(idClient);
 
                                     myWebView.setWebViewClient(new WebViewClient() {
                                         public void onPageFinished(WebView view, String url) {
@@ -922,6 +924,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                         TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
                             @Override
                             public void onFinishTime() {
+                                json.set("idClient", idClient);
                                 json.set("image", ImageUtils.captureScreen(FullscreenActivity.this));
                                 socketUtils.sendMessage(json.toString());
                             }
