@@ -62,6 +62,7 @@ import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
 import org.opendroidphp.app.util.NetUtilities;
+import org.opendroidphp.app.util.SharedUtils;
 import org.opendroidphp.app.util.SocketUtils;
 import org.opendroidphp.app.util.SystemUiHider;
 import org.opendroidphp.app.util.TimeHandler;
@@ -489,7 +490,8 @@ public class FullscreenActivity extends DroidPhpActivity {
                         params2.add(new BasicNameValuePair("database", "db_licenciamiento"));
                         params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
                         emailClient = jsonObj.getString("email");
-                        params2.add(new BasicNameValuePair("email", jsonObj.getString("email")));
+                        SharedUtils.setEmail(FullscreenActivity.this, emailClient);
+                        params2.add(new BasicNameValuePair("email", emailClient));
                         params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                         params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
                         params2.add(new BasicNameValuePair("fingerprint", jsonObj.getString("fingerprint")));
@@ -566,7 +568,8 @@ public class FullscreenActivity extends DroidPhpActivity {
 
                             params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
                             emailClient = jsonObj.getString("email");
-                            params2.add(new BasicNameValuePair("email", jsonObj.getString("email")));
+                            SharedUtils.setEmail(FullscreenActivity.this, emailClient);
+                            params2.add(new BasicNameValuePair("email", emailClient));
                             params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                             params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
                             params2.add(new BasicNameValuePair("fingerprint", jsonObj.getString("fingerprint")));
