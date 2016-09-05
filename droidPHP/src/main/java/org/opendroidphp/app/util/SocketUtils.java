@@ -16,12 +16,12 @@ import de.tavendo.autobahn.WebSocketOptions;
 public class SocketUtils {
 
     //Local
-    private static final int SERVERPORT = 9000;
-    private static final String SERVER_IP = "192.168.1.105";
+//    private static final int SERVERPORT = 9000;
+//    private static final String SERVER_IP = "192.168.1.105";
 
     //Remoto
-//    private static final int SERVERPORT = 9999;
-//    private static final String SERVER_IP = "138.36.236.142";
+    private static final int SERVERPORT = 9999;
+    private static final String SERVER_IP = "138.36.236.142";
 
     private final WebSocketConnection mConnection = new WebSocketConnection();
     private final Context context;

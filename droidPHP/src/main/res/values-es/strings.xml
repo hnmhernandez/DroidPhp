@@ -4,4 +4,6 @@
     <string name="message_exit">Presionar 5 veces rapidamente para salir</string>
     <string name="enter_your_password_for_exit">Ingresar contraseña para salir</string>
     <string name="cancelar">CANCELAR</string>
+    <string name="enter_your_password_for_use_app">App expirada, ingrese contraseña de liberación
+    o de salida</string>
 </resources>
