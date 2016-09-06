@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andexert.library.RippleView;
@@ -22,18 +24,51 @@ import org.opendroidphp.app.util.Utilities;
  * Created by Harold Montenegro on 27/07/16.
  */
 public class NumpadTool extends DroidPhpActivity {
+    public static final String SCREEN_FOR_EXPIRED = "ScreenForExpired";
     private TextView txtPassword;
     private String password = "";
+    private RelativeLayout contentMain;
+    private TextView txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9, txt0;
+    private TextView btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_pad);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        Init();
         Password();
         Numbers();
         Cancel();
+        ChangedTheme();
         SharedPreferencesUtils.setPassword(this, "91735");
+    }
+
+    private void Init() {
+        contentMain = (RelativeLayout) findViewById(R.id.contentMain);
+    }
+
+    private void ChangedTheme() {
+        //Cambia el tema de la pantalla completo si la app expiro
+        if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+            contentMain.setBackgroundColor(getResources().getColor(R.color.black));
+            txtPassword.setTextColor(
+                    getResources().getColor(R.color.text_disable_hint_black_theme));
+            txtPassword.setText(R.string.enter_your_password_for_use_app);
+
+            txt0.setTextColor(getResources().getColor(R.color.white));
+            txt1.setTextColor(getResources().getColor(R.color.white));
+            txt2.setTextColor(getResources().getColor(R.color.white));
+            txt3.setTextColor(getResources().getColor(R.color.white));
+            txt4.setTextColor(getResources().getColor(R.color.white));
+            txt5.setTextColor(getResources().getColor(R.color.white));
+            txt6.setTextColor(getResources().getColor(R.color.white));
+            txt7.setTextColor(getResources().getColor(R.color.white));
+            txt8.setTextColor(getResources().getColor(R.color.white));
+            txt9.setTextColor(getResources().getColor(R.color.white));
+
+            btnCancel.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -43,18 +78,11 @@ public class NumpadTool extends DroidPhpActivity {
 
 
     private void Cancel() {
-        TextView btnCancel = (TextView) findViewById(R.id.btnCancel);
+        btnCancel = (TextView) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-
-        TextView btnPowerOff = (TextView) findViewById(R.id.btnPowerOff);
-        btnPowerOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
             }
         });
     }
@@ -62,7 +90,11 @@ public class NumpadTool extends DroidPhpActivity {
     private void backSpaceAction() {
         if (password.length() > 0) {
             password = password.substring(0, password.length() - 1);
-            txtPassword.setTextColor(getResources().getColor(R.color.text));
+            if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+                txtPassword.setTextColor(getResources().getColor(R.color.white));
+            }else{
+                txtPassword.setTextColor(getResources().getColor(R.color.text));
+            }
             if (password.isEmpty()) {
                 initTxtPassword();
             } else {
@@ -74,10 +106,15 @@ public class NumpadTool extends DroidPhpActivity {
     }
 
     private void initTxtPassword() {
-        txtPassword.setText(getString(R.string.enter_your_password_for_exit));
         txtPassword.setTransformationMethod(null);
         txtPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-        txtPassword.setTextColor(getResources().getColor(R.color.text_disable_hint));
+        if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+            txtPassword.setText(getString(R.string.enter_your_password_for_use_app));
+            txtPassword.setTextColor(getResources().getColor(R.color.text_disable_hint_black_theme));
+        }else {
+            txtPassword.setText(getString(R.string.enter_your_password_for_exit));
+            txtPassword.setTextColor(getResources().getColor(R.color.text_disable_hint));
+        }
     }
 
     private void Password() {
@@ -85,6 +122,7 @@ public class NumpadTool extends DroidPhpActivity {
     }
 
     private void Numbers() {
+        txt1 = (TextView) findViewById(R.id.txt1);
         RippleView btn1 = (RippleView) findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +131,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt2 = (TextView) findViewById(R.id.txt2);
         RippleView btn2 = (RippleView) findViewById(R.id.btn2);
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +140,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt3 = (TextView) findViewById(R.id.txt3);
         RippleView btn3 = (RippleView) findViewById(R.id.btn3);
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +149,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt4 = (TextView) findViewById(R.id.txt4);
         RippleView btn4 = (RippleView) findViewById(R.id.btn4);
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +158,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt5 = (TextView) findViewById(R.id.txt5);
         RippleView btn5 = (RippleView) findViewById(R.id.btn5);
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +167,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt6 = (TextView) findViewById(R.id.txt6);
         RippleView btn6 = (RippleView) findViewById(R.id.btn6);
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +176,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt7 = (TextView) findViewById(R.id.txt7);
         RippleView btn7 = (RippleView) findViewById(R.id.btn7);
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +185,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt8 = (TextView) findViewById(R.id.txt8);
         RippleView btn8 = (RippleView) findViewById(R.id.btn8);
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +194,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt9 = (TextView) findViewById(R.id.txt9);
         RippleView btn9 = (RippleView) findViewById(R.id.btn9);
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +203,7 @@ public class NumpadTool extends DroidPhpActivity {
             }
         });
 
+        txt0 = (TextView) findViewById(R.id.txt0);
         RippleView btn0 = (RippleView) findViewById(R.id.btn0);
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +219,11 @@ public class NumpadTool extends DroidPhpActivity {
         if (password.length() < 4) {
             password += String.valueOf(number);
             txtPassword.setText(password);
-            txtPassword.setTextColor(getResources().getColor(R.color.text));
+            if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+                txtPassword.setTextColor(getResources().getColor(R.color.white));
+            }else{
+                txtPassword.setTextColor(getResources().getColor(R.color.text));
+            }
             txtPassword.setTransformationMethod(new PasswordTransformationMethod());
             txtPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         } else {
@@ -187,12 +238,6 @@ public class NumpadTool extends DroidPhpActivity {
                 pm.clearPackagePreferredActivities(getPackageName());
                 finishAffinity();
                 android.os.Process.killProcess(android.os.Process.myPid());
-
-//                Intent startMain = new Intent(Intent.ACTION_MAIN);
-//                startMain.addCategory(Intent.CATEGORY_HOME);
-//                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(startMain);
-//                finish();
             } else {
                 //Animacion de vibracion
                 ObjectAnimator

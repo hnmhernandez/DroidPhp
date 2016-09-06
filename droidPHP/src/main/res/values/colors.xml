@@ -25,6 +25,7 @@
     <color name="text_recent">#3797C7</color>
     <color name="text_description">#666666</color>
     <color name="text_disable_hint">#60000000</color>
+    <color name="text_disable_hint_black_theme">#c1d7d7d7</color>
 
 
     <color name="list_item_title">#fff</color>
