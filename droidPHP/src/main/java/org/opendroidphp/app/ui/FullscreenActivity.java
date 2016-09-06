@@ -54,10 +54,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.opendroidphp.R;
 import org.opendroidphp.app.Constants;
+import org.opendroidphp.app.NumpadTool;
 import org.opendroidphp.app.common.utils.FileUtils;
 import org.opendroidphp.app.services.ServerService;
 import org.opendroidphp.app.tasks.CommandTask;
 import org.opendroidphp.app.tasks.DescargarArchivo;
+import org.opendroidphp.app.util.DateUtils;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
@@ -138,6 +140,7 @@ public class FullscreenActivity extends DroidPhpActivity {
     public static String idClient = "";
     private String postDataStr = "";
     public static  String emailClient = "";
+    private String fechaExpiracion = "";
 
     @Override
     protected void onStart() {
@@ -229,21 +232,6 @@ public class FullscreenActivity extends DroidPhpActivity {
         } else {
             cambiarRootCrearUser();
         }
-
-
-        //TODO//////////////////////////////////////////////////////////////////////////////////////
-
-        final Button boton = (Button)findViewById(R.id.boton);
-
-        final Button boton2 = (Button)findViewById(R.id.boton2);
-        boton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendPost();
-            }
-        });
-
-        //TODO//////////////////////////////////////////////////////////////////////////////////////
     }
 
     public void cambiarRootCrearUser() {
@@ -499,7 +487,8 @@ public class FullscreenActivity extends DroidPhpActivity {
                         params2.add(new BasicNameValuePair("nombreTerminal", jsonObj.getString("nombreTerminal")));
                         params2.add(new BasicNameValuePair("musicaFuncional", jsonObj.getString("musicaFuncional")));
                         params2.add(new BasicNameValuePair("fechaActivacion", jsonObj.getString("fechaActivacion")));
-                        params2.add(new BasicNameValuePair("fechaExpiracion", jsonObj.getString("fechaExpiracion")));
+                        fechaExpiracion = jsonObj.getString("fechaExpiracion");
+                        params2.add(new BasicNameValuePair("fechaExpiracion", fechaExpiracion));
                         params2.add(new BasicNameValuePair("activo", jsonObj.getString("activo")));
 
                         //Ejecucion de consulta en Apache
@@ -577,7 +566,8 @@ public class FullscreenActivity extends DroidPhpActivity {
                             params2.add(new BasicNameValuePair("nombreTerminal", jsonObj.getString("nombreTerminal")));
                             params2.add(new BasicNameValuePair("musicaFuncional", jsonObj.getString("musicaFuncional")));
                             params2.add(new BasicNameValuePair("fechaActivacion", jsonObj.getString("fechaActivacion")));
-                            params2.add(new BasicNameValuePair("fechaExpiracion", jsonObj.getString("fechaExpiracion")));
+                            fechaExpiracion = jsonObj.getString("fechaExpiracion");
+                            params2.add(new BasicNameValuePair("fechaExpiracion", fechaExpiracion));
                             params2.add(new BasicNameValuePair("activo", jsonObj.getString("activo")));
 
                             //Ejecucion de consulta en Apache
@@ -638,6 +628,14 @@ public class FullscreenActivity extends DroidPhpActivity {
                                             view.loadUrl("javascript:window.HTMLOUT.processHTML('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');");
                                         }
                                     });
+
+                                    //TODO//////////////////////////////////////////////////////////////////////////////////
+                                    //Verificar si la app vencio o no
+                                    if(appExpired()){
+                                        Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
+//                                        intent.putExtra(NumpadTool)
+                                    }
+                                    //TODO//////////////////////////////////////////////////////////////////////////////////
 
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
                                     WebSocket();
@@ -888,28 +886,6 @@ public class FullscreenActivity extends DroidPhpActivity {
 
     //TODO/////////////////////////////////////////////////////////////////////////////////
 
-
-    //TODO////////////////////////////////////////////////////////////////////////////////
-    private void sendPost() {
-        Json json = Json.object();
-        json.set("foo", "bar");
-
-        Utilities.log("JSONSEND--> " + json);
-        NetUtilities netUtilities = new NetUtilities(this, new NetUtilities.OnNetUtilsActions() {
-            @Override
-            public void onInitRequest(String url) {
-                Utilities.log("INITRESQUEST");
-            }
-
-            @Override
-            public void onFinishRequest(String url, Exception e, String response, int status) {
-                Utilities.log("RESPONSE--> " + response);
-                Utilities.log("STATUS--> " + status);
-            }
-        });
-        netUtilities.postRequest("http://192.168.1.171/info.php", json);
-    }
-
     private SocketUtils socketUtils;
     private void WebSocket() {
         socketUtils = new SocketUtils(this);
@@ -942,6 +918,17 @@ public class FullscreenActivity extends DroidPhpActivity {
 
             }
         });
+    }
+    //TODO////////////////////////////////////////////////////////////////////////////////
+
+    //TODO////////////////////////////////////////////////////////////////////////////////
+    private boolean appExpired() {
+        if(DateUtils.stringToDate(fechaExpiracion).before(DateUtils.getToday())){
+            return true;
+        }else {
+            return false;
+
+        }
     }
     //TODO////////////////////////////////////////////////////////////////////////////////
 }
