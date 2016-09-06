@@ -23,8 +23,8 @@ public class Utilities {
     }
 
     public static Integer[] getScreenDimensionsWH(Context context) {
-        //Devuelve en un array de enteros, en la posición 0, el ancho en píxeles de la pantalla del teléfono, y en la posición
-        //1 devuelve el alto.
+        //Devuelve en un array de enteros, en la posición 0, el ancho en píxeles de la pantalla del
+        //teléfono, y en la posició 1 devuelve el alto.
         Integer res[] = new Integer[2];
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -49,4 +49,14 @@ public class Utilities {
         return info.getMacAddress();
     }
 
+    public static String extractNumberString(String string) {
+        String result = "";
+        for (int i = 0;i<string.length();i++){
+            try{
+                result += Integer.parseInt(String.valueOf(string.charAt(i)));
+            }catch (Exception ignored){
+            }
+        }
+        return result;
+    }
 }

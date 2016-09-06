@@ -13,6 +13,9 @@ import android.preference.PreferenceManager;
 
 public class SharedPreferencesUtils {
     private static String password = "password";
+    private static String passwordUnlock = "passwordUnlock";
+    private static String deviceUnlock = "deviceUnlock";
+    private static String email = "email";
 
     public static String getPassword(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(password, "");
@@ -22,6 +25,38 @@ public class SharedPreferencesUtils {
         SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = myPreference.edit();
         editor.putString(password, newPassword);
+        editor.apply();
+    }
+
+    public static String getPasswordUnlock(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(passwordUnlock, "");
+    }
+
+    public static void setPasswordUnlock(Context context, String newPassword) {
+        SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = myPreference.edit();
+        editor.putString(passwordUnlock, newPassword);
+        editor.apply();
+    }
+
+    public static boolean getDeviceUnlock(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(deviceUnlock, false);
+    }
+
+    public static void setDeviceUnlock(Context context, boolean unlock) {
+        SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = myPreference.edit();
+        editor.putBoolean(deviceUnlock, unlock);
+        editor.apply();
+    }
+
+    public static String getEmail(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(email, "");
+    }
+
+    public static void setEmail(Context context, String emailNew) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString(email, emailNew);
         editor.apply();
     }
 

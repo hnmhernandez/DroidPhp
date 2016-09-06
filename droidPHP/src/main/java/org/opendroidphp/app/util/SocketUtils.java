@@ -78,7 +78,7 @@ public class SocketUtils {
                     json.set("mac", Utilities.getMacAddress(context));
                     json.set("fingerPrint", Utilities.getFingerPrint(context));
                     json.set("idClient", FullscreenActivity.idClient);
-                    json.set("emailClient", SharedUtils.getEmail(context));
+                    json.set("emailClient", SharedPreferencesUtils.getEmail(context));
                     sendMessage(json.toString());
                 }
 

@@ -10,12 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -31,12 +29,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.Response;
-import com.koushikdutta.ion.builder.Builders;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -63,15 +55,13 @@ import org.opendroidphp.app.util.DateUtils;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
-import org.opendroidphp.app.util.NetUtilities;
-import org.opendroidphp.app.util.SharedUtils;
+import org.opendroidphp.app.util.SharedPreferencesUtils;
 import org.opendroidphp.app.util.SocketUtils;
 import org.opendroidphp.app.util.SystemUiHider;
 import org.opendroidphp.app.util.TimeHandler;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -86,7 +76,6 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -141,6 +130,7 @@ public class FullscreenActivity extends DroidPhpActivity {
     private String postDataStr = "";
     public static  String emailClient = "";
     private String fechaExpiracion = "";
+    private boolean numPadLaunched= false;
 
     @Override
     protected void onStart() {
@@ -478,7 +468,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                         params2.add(new BasicNameValuePair("database", "db_licenciamiento"));
                         params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
                         emailClient = jsonObj.getString("email");
-                        SharedUtils.setEmail(FullscreenActivity.this, emailClient);
+                        SharedPreferencesUtils.setEmail(FullscreenActivity.this, emailClient);
                         params2.add(new BasicNameValuePair("email", emailClient));
                         params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                         params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
@@ -557,7 +547,7 @@ public class FullscreenActivity extends DroidPhpActivity {
 
                             params2.add(new BasicNameValuePair("idCliente", jsonObj.getString("idCliente")));
                             emailClient = jsonObj.getString("email");
-                            SharedUtils.setEmail(FullscreenActivity.this, emailClient);
+                            SharedPreferencesUtils.setEmail(FullscreenActivity.this, emailClient);
                             params2.add(new BasicNameValuePair("email", emailClient));
                             params2.add(new BasicNameValuePair("password", jsonObj.getString("password")));
                             params2.add(new BasicNameValuePair("nomEmpresa", jsonObj.getString("nombreEmpresa")));
@@ -631,13 +621,18 @@ public class FullscreenActivity extends DroidPhpActivity {
 
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
                                     //Verificar si la app vencio o no
-                                    if(appExpired()){
-                                        Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
-//                                        intent.putExtra(NumpadTool)
+                                    if(!SharedPreferencesUtils.getDeviceUnlock(FullscreenActivity.this)){
+                                        if(appExpired() && !numPadLaunched){
+                                            numPadLaunched = true;
+                                            Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
+                                            intent.putExtra(NumpadTool.SCREEN_FOR_EXPIRED, true);
+                                            startActivity(intent);
+                                        }
                                     }
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
 
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
+                                    //Activar el WebSocket
                                     WebSocket();
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
 

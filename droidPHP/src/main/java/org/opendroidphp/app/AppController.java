@@ -46,7 +46,7 @@ public class AppController extends Application {
             ((AppController) context).runInApplicationThread(new Runnable() {
                 @Override
                 public void run() {
-                    IcsToast.makeText(c, m, IcsToast.LENGTH_LONG).show();
+//                    IcsToast.makeText(c, m, IcsToast.LENGTH_LONG).show();
                 }
             });
         }

@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
@@ -46,6 +45,17 @@ public class NumpadTool extends DroidPhpActivity {
 
     private void Init() {
         contentMain = (RelativeLayout) findViewById(R.id.contentMain);
+
+        //si la contraseña de liberacion no esta en el shared esta se crea
+        if (SharedPreferencesUtils.getPasswordUnlock(this).isEmpty()) {
+            String pass = Utilities.extractNumberString(Utilities.getFingerPrint(this));
+            if (pass.length() > 5) {
+                pass = pass.substring(0, 5) + "53719";
+            } else {
+                pass = pass + "53719";
+            }
+            SharedPreferencesUtils.setPasswordUnlock(this, pass);
+        }
     }
 
     private void ChangedTheme() {
@@ -92,7 +102,7 @@ public class NumpadTool extends DroidPhpActivity {
             password = password.substring(0, password.length() - 1);
             if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
                 txtPassword.setTextColor(getResources().getColor(R.color.white));
-            }else{
+            } else {
                 txtPassword.setTextColor(getResources().getColor(R.color.text));
             }
             if (password.isEmpty()) {
@@ -111,7 +121,7 @@ public class NumpadTool extends DroidPhpActivity {
         if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
             txtPassword.setText(getString(R.string.enter_your_password_for_use_app));
             txtPassword.setTextColor(getResources().getColor(R.color.text_disable_hint_black_theme));
-        }else {
+        } else {
             txtPassword.setText(getString(R.string.enter_your_password_for_exit));
             txtPassword.setTextColor(getResources().getColor(R.color.text_disable_hint));
         }
@@ -214,38 +224,63 @@ public class NumpadTool extends DroidPhpActivity {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void markNumber(int number) {
-        if (password.length() < 4) {
-            password += String.valueOf(number);
-            txtPassword.setText(password);
-            if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
-                txtPassword.setTextColor(getResources().getColor(R.color.white));
-            }else{
-                txtPassword.setTextColor(getResources().getColor(R.color.text));
+        if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+            if(password.length() < 10){
+                putDigit(number);
+                if (password.equals(SharedPreferencesUtils.getPasswordUnlock(this))) {
+                    SharedPreferencesUtils.setDeviceUnlock(this, true);
+                    finish();
+                }else if(password.equals(SharedPreferencesUtils.getPassword(this))){
+                    finishApp();
+                }
+            }else {
+                errorPassword();
             }
-            txtPassword.setTransformationMethod(new PasswordTransformationMethod());
-            txtPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         } else {
-
-            if (password.length() < 5) {
-                password += String.valueOf(number);
-                txtPassword.setText(password);
-            }
-
-            if (password.equals(SharedPreferencesUtils.getPassword(this))) {
-                PackageManager pm = getPackageManager();
-                pm.clearPackagePreferredActivities(getPackageName());
-                finishAffinity();
-                android.os.Process.killProcess(android.os.Process.myPid());
+            if (password.length() < 4) {
+                putDigit(number);
             } else {
-                //Animacion de vibracion
-                ObjectAnimator
-                        .ofFloat(txtPassword, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0)
-                        .setDuration(300)
-                        .start();
-                txtPassword.setTextColor(getResources().getColor(R.color.common_red));
+                if (password.length() < 5) {
+                    password += String.valueOf(number);
+                    txtPassword.setText(password);
+                }
+                if (password.equals(SharedPreferencesUtils.getPassword(this))) {
+                    finishApp();
+                } else {
+                    errorPassword();
+                }
             }
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void errorPassword() {
+        //Animacion de vibracion
+        ObjectAnimator
+                .ofFloat(txtPassword, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0)
+                .setDuration(300)
+                .start();
+        txtPassword.setTextColor(getResources().getColor(R.color.common_red));
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void finishApp() {
+        PackageManager pm = getPackageManager();
+        pm.clearPackagePreferredActivities(getPackageName());
+        finishAffinity();
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    private void putDigit(int number){
+        password += String.valueOf(number);
+        txtPassword.setText(password);
+        if (getIntent().getBooleanExtra(SCREEN_FOR_EXPIRED, false)) {
+            txtPassword.setTextColor(getResources().getColor(R.color.white));
+        } else {
+            txtPassword.setTextColor(getResources().getColor(R.color.text));
+        }
+        txtPassword.setTransformationMethod(new PasswordTransformationMethod());
+        txtPassword.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
     }
 }
