@@ -3,7 +3,7 @@
 
     <string name="textOn">ON</string>
     <string name="textOff">OFF</string>
-    <string name="app_name">Neo Innovaciones</string>
+    <string name="app_name">neoinnovaciones</string>
     <string name="web_admin">Web Admin</string>
     <string name="php_my_admin">Go to phpMyAdmin</string>
     <string name="sql_admin">SQL Admin</string>

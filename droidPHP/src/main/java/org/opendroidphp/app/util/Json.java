@@ -126,10 +126,10 @@ import java.util.regex.Pattern;
  * Adding elements to an array <code>Json</code> is done with the {@link #add(Object)} method.
  * Removing elements by their index (or key) is done with the {@link #delAt(int)} (or
  * {@link #delAt(String)}) method. You can also remove an element from an array without
- * knowing its index with the {@link #remove(Object)} method. All these methods return the
+ * knowing its index with the {@link #remove(Object)} method. All these methods return the 
  * <code>Json</code> instance being manipulated so that method calls can be chained.
  * If you want to remove an element from an object or array and return the removed element
- * as a result of the operation, call {@link #atDel(int)} or {@link #atDel(String)} instead.
+ * as a result of the operation, call {@link #atDel(int)} or {@link #atDel(String)} instead.  
  * </p>
  * 
  * <p>
@@ -228,7 +228,7 @@ import java.util.regex.Pattern;
  * </p>
  *
  * @author Borislav Iordanov
- * @version one.3
+ * @version 1.3
  */
 public class Json
 {
@@ -350,7 +350,7 @@ public class Json
 
     static Json resolvePointer(String pointerRepresentation, Json top)
     {
-    	String[] parts = pointerRepresentation.split("/");
+    	String [] parts = pointerRepresentation.split("/");
     	Json result = top;
     	for (String p : parts)
     	{
@@ -387,7 +387,7 @@ public class Json
    		return refuri;
     }
 
-    static Json resolveRef(URI base, Json refdoc, URI refuri, Map<String, Json> resolved, Map<Json, Json> expanded) throws Exception
+    static Json resolveRef(URI base, Json refdoc, URI refuri,  Map<String, Json> resolved, Map<Json, Json> expanded) throws Exception
     {
     	if (refuri.isAbsolute() &&
     		 (base == null || !base.isAbsolute() ||
@@ -496,7 +496,7 @@ public class Json
     	class IsNumber implements Instruction { public Json apply(Json param)
 			{ return param.isNumber() ? null : Json.make(param.toString(maxchars)); } }
     	class IsInteger implements Instruction { public Json apply(Json param)
-			{ return param.isNumber() && ((Number)param.getValue()) instanceof Integer ? null : Json.make(param.toString(maxchars)); } }
+			{ return param.isNumber() && ((Number)param.getValue()) instanceof Integer  ? null : Json.make(param.toString(maxchars)); } }
 
     	class CheckString implements Instruction
     	{
@@ -1161,7 +1161,7 @@ public class Json
 	 * @throws IllegalArgumentException when the concrete type of the parameter is
 	 * unknown.
 	 */
-	public static Json make(Object anything)
+	public static Json make(Object anything) 
 	{
 	    return factory().make(anything);
 	}
@@ -1238,7 +1238,7 @@ public class Json
 	 * @param property The property to return.
 	 * @param def The default value to set and return in case the property doesn't exist.
 	 */
-	public final Json at(String property, Json def)
+	public final Json at(String property, Json def)	
 	{
 		Json x = at(property);
 		if (x == null)
@@ -1421,7 +1421,7 @@ public class Json
 	 * @param value the Act value of the element
 	 * @return this 
 	 */
-	public Json set(int index, Object value) { throw new UnsupportedOperationException(); }
+	public Json set(int index, Object value) { throw new UnsupportedOperationException(); }	
 	
 	/**
 	 * <p>
@@ -1505,7 +1505,7 @@ public class Json
 	 * {@link #isString()} first if you're not sure this instance is indeed a
 	 * string.</p>
 	 */	
-	public char asChar() { throw new UnsupportedOperationException(); }
+	public char asChar() { throw new UnsupportedOperationException(); }		
 
 	/**
 	 * <p>Return a map of the properties of an object <code>Json</code> instance. The map
@@ -1617,7 +1617,7 @@ public class Json
 		public Json dup() { return new NullJson(); }
 		public boolean isNull() { return true; }
 		public String toString() { return "null"; }
-		public List<Object> asList() { return (List<Object>) Collections.singletonList(null); }
+		public List<Object> asList() { return (List<Object>)Collections.singletonList(null); }
 		
 		public int hashCode() { return 0; }
 		public boolean equals(Object x)
@@ -1642,7 +1642,7 @@ public class Json
 		public String toString() { return val ? "true" : "false"; }
 		
 		@SuppressWarnings("unchecked")
-		public List<Object> asList() { return (List<Object>)(List<?>) Collections.singletonList(val); }
+		public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
 		public int hashCode() { return val ? 1 : 0; }
 		public boolean equals(Object x)
 		{
@@ -1670,13 +1670,13 @@ public class Json
 		public byte asByte() { return Byte.parseByte(val); }
 		public char asChar() { return val.charAt(0); }
 		@SuppressWarnings("unchecked")
-		public List<Object> asList() { return (List<Object>)(List<?>) Collections.singletonList(val); }
+		public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
 		
 		public String toString()
 		{
 			return '"' + escaper.escapeJsonString(val) + '"'; 
 		}
-		public String toString(int maxCharacters)
+		public String toString(int maxCharacters) 
 		{
 			if (val.length() <= maxCharacters)
 				return toString();
@@ -1710,7 +1710,7 @@ public class Json
 		public byte asByte() { return val.byteValue(); }
 
 		@SuppressWarnings("unchecked")
-		public List<Object> asList() { return (List<Object>)(List<?>) Collections.singletonList(val); }
+		public List<Object> asList() { return (List<Object>)(List<?>)Collections.singletonList(val); }
 		
 		public String toString() { return val.toString(); }
 		public int hashCode() { return val.hashCode(); }
@@ -1740,21 +1740,21 @@ public class Json
             return j;
         }
         
-        public Json set(int index, Object value)
+        public Json set(int index, Object value) 
         { 
         	L.set(index, make(value));
         	return this;
         }
         
 		public List<Json> asJsonList() { return L; }
-		public List<Object> asList()
+		public List<Object> asList() 
 		{
 			ArrayList<Object> A = new ArrayList<Object>();
 			for (Json x: L)
 				A.add(x.getValue());
 			return A; 
 		}
-        public boolean is(int index, Object value)
+        public boolean is(int index, Object value) 
         { 
             if (index < 0 || index >= L.size())
                 return false;
@@ -1800,7 +1800,7 @@ public class Json
 			return toString(Integer.MAX_VALUE);
 		}
 		
-		public String toString(int maxCharacters)
+		public String toString(int maxCharacters) 
 		{
 			StringBuilder sb = new StringBuilder("[");
 			for (Iterator<Json> i = L.iterator(); i.hasNext(); )
@@ -1853,7 +1853,7 @@ public class Json
 			return object.containsKey(property);
 		}
 		
-		public boolean is(String property, Object value)
+		public boolean is(String property, Object value) 
 		{ 
 		    Json p = object.get(property);
 		    if (p == null)
@@ -1885,7 +1885,7 @@ public class Json
 			return this;
 		}
 
-		public Json atDel(String property)
+		public Json atDel(String property) 
 		{
 			Json el = object.remove(property);
 			if (el != null)
@@ -1893,7 +1893,7 @@ public class Json
 			return el;
 		}
 		
-		public Json delAt(String property)
+		public Json delAt(String property) 
 		{
 			Json el = object.remove(property);
 			if (el != null)
@@ -1903,7 +1903,7 @@ public class Json
 		
 		public Object getValue() { return asMap(); }
 		public boolean isObject() { return true; }
-		public Map<String, Object> asMap()
+		public Map<String, Object> asMap() 
 		{
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			for (Map.Entry<String, Json> e : object.entrySet())
@@ -2141,7 +2141,7 @@ public class Json
 	    private char next() 
 	    {
 	        if (it.getIndex() == it.getEndIndex())
-	            throw new RuntimeException("Reached end of input at the " +
+	            throw new RuntimeException("Reached end of input at the " + 
 	                                       it.getIndex() + "th character.");
 	        c = it.next();
 	        return c;
@@ -2185,7 +2185,7 @@ public class Json
 	        } while (next() != CharacterIterator.DONE);
 	    }
 
-	    public Object read(CharacterIterator ci, int start)
+	    public Object read(CharacterIterator ci, int start) 
 	    {
 	        it = ci;
 	        switch (start) 
@@ -2203,12 +2203,12 @@ public class Json
 	        return read();
 	    }
 
-	    public Object read(CharacterIterator it)
+	    public Object read(CharacterIterator it) 
 	    {
 	        return read(it, NEXT);
 	    }
 
-	    public Object read(String string)
+	    public Object read(String string) 
 	    {
 	        return read(new StringCharacterIterator(string), FIRST);
 	    }
@@ -2331,7 +2331,7 @@ public class Json
 	        }
 	 
 	        String s = buf.toString();
-	        Number n = isFloatingPoint
+	        Number n = isFloatingPoint 
 	            ? (length < 17) ? Double.valueOf(s) : new BigDecimal(s)
 	            : (length < 20) ? Long.valueOf(s) : new BigInteger(s);
 	        return factory().number(n);
@@ -2340,7 +2340,7 @@ public class Json
 	    private int addDigits() 
 	    {
 	        int ret;
-	        for (ret = 0; Character.isDigit(c); ++ret)
+	        for (ret = 0; Character.isDigit(c); ++ret) 
 	        {
 	            add();
 	        }
@@ -2395,7 +2395,7 @@ public class Json
 	        {
 	            switch (next()) 
 	            {
-	            	case '0': case '1': case '2': case '3': case '4':
+	            	case '0': case '1': case '2': case '3': case '4': 
 	            	case '5': case '6': case '7': case '8': case '9':
 	            		value = (value << 4) + c - '0';
 	            		break;

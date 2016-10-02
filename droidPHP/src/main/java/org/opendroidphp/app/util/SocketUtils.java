@@ -17,7 +17,7 @@ public class SocketUtils {
 
     //Local
 //    private static final int SERVERPORT = 9000;
-//    private static final String SERVER_IP = "192.168.1.105";
+//    private static final String SERVER_IP = "192.168.1.130";
 
     //Remoto
     private static final int SERVERPORT = 9999;
