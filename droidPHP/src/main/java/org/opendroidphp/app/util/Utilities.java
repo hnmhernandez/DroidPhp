@@ -12,6 +12,12 @@ import android.util.Log;
  * Created by Harold Montenegro on 27/07/16.
  */
 public class Utilities {
+    //Local
+//    public static String urlBase = "http://192.168.1.103/socketServerNeosepelios";
+
+    //Remoto
+    public static String urlBase =  "http://neosepelios.com.ar/neoinnovaciones/cpanel/neosepeliossocket/";
+
     private static final String LOGTAG = "droidphptag";
 
     public static void log(String message){

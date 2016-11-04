@@ -30,6 +30,10 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -51,14 +55,17 @@ import org.opendroidphp.app.common.utils.FileUtils;
 import org.opendroidphp.app.services.ServerService;
 import org.opendroidphp.app.tasks.CommandTask;
 import org.opendroidphp.app.tasks.DescargarArchivo;
+import org.opendroidphp.app.util.AnimationUtilities;
 import org.opendroidphp.app.util.DateUtils;
 import org.opendroidphp.app.util.DroidPhpActivity;
 import org.opendroidphp.app.util.ImageUtils;
 import org.opendroidphp.app.util.Json;
+import org.opendroidphp.app.util.NetUtilities;
 import org.opendroidphp.app.util.SharedPreferencesUtils;
 import org.opendroidphp.app.util.SocketUtils;
 import org.opendroidphp.app.util.SystemUiHider;
 import org.opendroidphp.app.util.TimeHandler;
+import org.opendroidphp.app.util.TimerCustom;
 import org.opendroidphp.app.util.Utilities;
 
 import java.io.File;
@@ -76,8 +83,6 @@ import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -128,9 +133,11 @@ public class FullscreenActivity extends DroidPhpActivity {
     public Button buttonContinuar;
     public static String idClient = "";
     private String postDataStr = "";
-    public static  String emailClient = "";
+    public static String emailClient = "";
     private String fechaExpiracion = "";
-    private boolean numPadLaunched= false;
+    private boolean numPadLaunched = false;
+    private View viewBlackScreen;
+//    private TimerCustom timerCustom;
 
     @Override
     protected void onStart() {
@@ -621,29 +628,22 @@ public class FullscreenActivity extends DroidPhpActivity {
 
                                     //TODO//////////////////////////////////////////////////////////////////////////////////
                                     //Verificar si la app vencio o no
-                                    if(!SharedPreferencesUtils.getDeviceUnlock(FullscreenActivity.this)){
-                                        if(appExpired() && !numPadLaunched){
-                                            numPadLaunched = true;
-                                            Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
-                                            intent.putExtra(NumpadTool.SCREEN_FOR_EXPIRED, true);
-                                            startActivity(intent);
+                                    try {
+                                        if (!SharedPreferencesUtils.getDeviceUnlock(FullscreenActivity.this)) {
+                                            if (appExpired() && !numPadLaunched) {
+                                                numPadLaunched = true;
+                                                Intent intent = new Intent(FullscreenActivity.this, NumpadTool.class);
+                                                intent.putExtra(NumpadTool.SCREEN_FOR_EXPIRED, true);
+                                                startActivity(intent);
+                                            }
                                         }
-                                    }
-                                    //TODO//////////////////////////////////////////////////////////////////////////////////
+                                    } catch (Exception ignored) {
 
-                                    //TODO//////////////////////////////////////////////////////////////////////////////////
+                                    }
+
                                     //Activar el WebSocket
-                                    WebSocket();
-                                    //TODO//////////////////////////////////////////////////////////////////////////////////
-
-                                    //TODO////////////////////////////////////////////////////////////
-                                    if (myWebView.getUrl() != null) {
-                                        if (!myWebView.getUrl().equals("http://neosepel.ferozo.net/neoinnovaciones/RegistroClientes/view/registro.php")){
-//                                            timer.scheduleAtFixedRate(timerTask, 15000, 5000);
-                                        }
-                                    }
-                                    //TODO///////////////////////////////////////////////////////////
-
+//                                    WebSocket();
+                                    //TODO////////////////////////////////////////////////////////////////////////////////
                                 }
                             } else {
                                 dialogoEspere.dismiss();
@@ -695,7 +695,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                 }
             }
         } catch (SocketException ex) {
-            Log.e("Socket exception in GetIP Address of Utilities", ex.toString());
+//            Log.e("Socket exception in GetIP Address of Utilities", ex.toString());
         }
         return null;
     }
@@ -712,6 +712,9 @@ public class FullscreenActivity extends DroidPhpActivity {
         setContentView(R.layout.activity_fullscreen);
         preventStatusBarExpansion(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        viewBlackScreen = findViewById(R.id.viewBlackScreen);
+//        Timer();
 
         //Verificar si existen los archivos, si no existe crearlos.
         if (!FileUtils.checkIfExecutableExists()) {
@@ -768,6 +771,7 @@ public class FullscreenActivity extends DroidPhpActivity {
     @Override
     protected void onPause() {
         super.onPause();
+//        timerCustom.stop();
 //        finishAffinity();
     }
 
@@ -837,7 +841,7 @@ public class FullscreenActivity extends DroidPhpActivity {
 
                 if (myWebView.getUrl() != null) {
                     Utilities.log("URL-->" + myWebView.getUrl());
-                    if (!myWebView.getUrl().equals("http://localhost:8080/demo/?protocolo=http&recurso=localhost%3A8080%2Findex1.php&w=1920&h=1080&titulo=&nota=")){
+                    if (!myWebView.getUrl().equals("http://localhost:8080/demo/?protocolo=http&recurso=localhost%3A8080%2Findex1.php&w=1920&h=1080&titulo=&nota=")) {
                         myWebView.loadUrl("http://localhost:8080/index.php");
                     }
                 }
@@ -850,7 +854,7 @@ public class FullscreenActivity extends DroidPhpActivity {
         @SuppressWarnings("unused")
         public void processHTML(String html) {
             Utilities.log("PAGINA--> " + html);
-            if(html.contains("var proporcionAncho = 1;")){
+            if (html.contains("var proporcionAncho = 1;")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -861,7 +865,7 @@ public class FullscreenActivity extends DroidPhpActivity {
                                 Settings.System.SCREEN_BRIGHTNESS, 20);
 
                         WindowManager.LayoutParams lp = getWindow().getAttributes();
-                        lp.screenBrightness =0f;// 100 / 100.0f;
+                        lp.screenBrightness = 0f;// 100 / 100.0f;
                         getWindow().setAttributes(lp);
                     }
                 });
@@ -869,19 +873,79 @@ public class FullscreenActivity extends DroidPhpActivity {
         }
     }
 
-    // Clase en la que está el código a ejecutar
-    TimerTask timerTask = new TimerTask() {
-        public void run() {
-            scanHtml();
-        }
-    };
+    private void sendGetScreenStatus() {
+        JsonObject params = new JsonObject();
+        params.addProperty("fingerprint", Utilities.getFingerPrint(this));
 
-    // Aquí se pone en marcha el timer cada segundo.
-    Timer timer = new Timer();
+        NetUtilities netUtilities = new NetUtilities(this, new NetUtilities.OnNetUtilsActions() {
+            @Override
+            public void onInitRequest(String url) {
+            }
+
+            @Override
+            public void onFinishRequest(String url, Exception e, String response, int status) {
+                Utilities.log("RESPONSE--> " + response);
+                JsonParser parser = new JsonParser();
+                JsonElement obj = parser.parse(response);
+                try {
+                    int screen = obj.getAsJsonObject().get("screen").getAsInt();
+                    if (screen == 0) {
+                        screenOffAction();
+                    } else {
+                        screenOnAction();
+                    }
+                } catch (Exception ignored) {
+
+                }
+            }
+        });
+        netUtilities.getRequest(Utilities.urlBase + "pantalla.php", params);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        timerCustom.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        timerCustom.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if(!timerCustom.isRunning()){
+//            Timer();
+//        }
+    }
+
+    private void screenOnAction() {
+        if(viewBlackScreen.getVisibility() == View.VISIBLE){
+            AnimationUtilities.animarAlpha(viewBlackScreen, 300, false, true);
+            TimeHandler timeHandler = new TimeHandler(300, new TimeHandler.OnTimeComplete() {
+                @Override
+                public void onFinishTime() {
+                    viewBlackScreen.setVisibility(View.GONE);
+                }
+            });
+            timeHandler.start();
+        }
+    }
+
+    private void screenOffAction() {
+        if(viewBlackScreen.getVisibility() == View.GONE){
+            viewBlackScreen.setVisibility(View.VISIBLE);
+            AnimationUtilities.animarAlpha(viewBlackScreen, 300, true, true);
+        }
+    }
 
     //TODO/////////////////////////////////////////////////////////////////////////////////
 
     private SocketUtils socketUtils;
+
     private void WebSocket() {
         socketUtils = new SocketUtils(this);
         socketUtils.setOnConnectionListener(new SocketUtils.OnConnectionListener() {
@@ -904,6 +968,17 @@ public class FullscreenActivity extends DroidPhpActivity {
                             }
                         });
                         timeHandler.start();
+                    } else if (json.at("type").asString().equals("screen")) {
+                        screenOnOffAction();
+                        TimeHandler timeHandler = new TimeHandler(500, new TimeHandler.OnTimeComplete() {
+                            @Override
+                            public void onFinishTime() {
+                                json.set("idClient", idClient);
+                                json.set("screenStatus", 2);
+                                socketUtils.sendMessage(json.toString());
+                            }
+                        });
+                        timeHandler.start();
                     }
                 }
             }
@@ -914,16 +989,37 @@ public class FullscreenActivity extends DroidPhpActivity {
             }
         });
     }
+
+    private void screenOnOffAction() {
+        if (viewBlackScreen.getVisibility() == View.GONE) {
+            viewBlackScreen.setVisibility(View.VISIBLE);
+            AnimationUtilities.animarAlpha(viewBlackScreen, 300, true, true);
+        } else {
+            AnimationUtilities.animarAlpha(viewBlackScreen, 300, false, true);
+            TimeHandler timeHandler = new TimeHandler(300, new TimeHandler.OnTimeComplete() {
+                @Override
+                public void onFinishTime() {
+                    viewBlackScreen.setVisibility(View.GONE);
+                }
+            });
+            timeHandler.start();
+        }
+    }
+
+//    private void Timer(){
+//        timerCustom = new TimerCustom(10000,10000);
+//        timerCustom.setOnTimeRun(new TimerCustom.OnTimeRun() {
+//            @Override
+//            public void onTime() {
+//                sendGetScreenStatus();
+//            }
+//        });
+//    }
     //TODO////////////////////////////////////////////////////////////////////////////////
 
     //TODO////////////////////////////////////////////////////////////////////////////////
     private boolean appExpired() {
-        if(DateUtils.stringToDate(fechaExpiracion).before(DateUtils.getToday())){
-            return true;
-        }else {
-            return false;
-
-        }
+        return DateUtils.stringToDate(fechaExpiracion).before(DateUtils.getToday());
     }
     //TODO////////////////////////////////////////////////////////////////////////////////
 }

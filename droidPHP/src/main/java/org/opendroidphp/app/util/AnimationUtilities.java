@@ -22,4 +22,22 @@ public class AnimationUtilities {
         return animacion;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static ObjectAnimator animarAlpha(View view, int tiempo, boolean mostrar, boolean animar) {
+        //Muestra u oculta un view pero con una animación de desvanecimiento, lo anima automáticamente.
+        float alpha = (mostrar) ? 1f : 0f;
+        ObjectAnimator anim = ObjectAnimator.ofFloat(view, "alpha", alpha);
+        anim.setDuration(tiempo);
+        if (mostrar) {
+            view.setAlpha(0f);
+        } else {
+            view.setAlpha(1f);
+        }
+        view.setVisibility(View.VISIBLE);
+        if (animar) {
+            anim.start();
+        }
+        return anim;
+    }
+
 }

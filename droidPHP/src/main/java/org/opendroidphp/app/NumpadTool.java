@@ -56,6 +56,9 @@ public class NumpadTool extends DroidPhpActivity {
             }
             SharedPreferencesUtils.setPasswordUnlock(this, pass);
         }
+
+        TextView txtFingerPrint = (TextView)findViewById(R.id.txtFingerPrint);
+        txtFingerPrint.setText(Utilities.getFingerPrint(this).substring(0,6) + " (Ver. 02) ");
     }
 
     private void ChangedTheme() {

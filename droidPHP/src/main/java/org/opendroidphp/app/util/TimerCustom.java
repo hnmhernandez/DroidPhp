@@ -9,6 +9,7 @@ import java.util.TimerTask;
 public class TimerCustom {
     int time, delay = 0;
     private OnTimeRun onTimeRun;
+    boolean isRunning = true;
 
     public void setOnTimeRun(OnTimeRun onTimeRun) {
         this.onTimeRun = onTimeRun;
@@ -40,12 +41,17 @@ public class TimerCustom {
         timer.scheduleAtFixedRate(timerTask, delay, time);
     }
 
-    public void stop(){
+    public void stop() {
+        isRunning = false;
         timer.cancel();
     }
 
-    public void start(){
+    public void start() {
+        isRunning = true;
         timer.scheduleAtFixedRate(timerTask, delay, time);
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
 }
